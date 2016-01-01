@@ -10,7 +10,7 @@ namespace FirewallEngine
 {
     class CommandLine
     {        
-        public static CommandResult RunCommand(string command, params string[] values)
+        public static CommandResult RunCommand(string command, params object[] values)
         {
             StreamWriter inputStream;
             StreamReader errorStream, outputStream;
@@ -19,7 +19,7 @@ namespace FirewallEngine
             string finalCommand = String.Format(command, values);
             ProcessStartInfo startInfo = new ProcessStartInfo();
             DateTime start;
-
+            Console.WriteLine(finalCommand);
             startInfo.FileName = "cmd.exe";
             startInfo.Arguments = "/C " + finalCommand;
             startInfo.WindowStyle = ProcessWindowStyle.Hidden;
@@ -32,21 +32,6 @@ namespace FirewallEngine
 
             p.StartInfo = startInfo;
 
-            p.OutputDataReceived += (sender, e) =>
-            {
-                string res = e.Data;
-                Console.WriteLine(res);
-            };
-
-            p.ErrorDataReceived += (sender, e) =>
-            {
-                string res = e.Data;
-                Console.WriteLine(res);
-            };
-
-
-
-
             string output = "";
 
             start = DateTime.Now;
@@ -58,7 +43,7 @@ namespace FirewallEngine
 
             while (!outputStream.EndOfStream)
             {
-                output += outputStream.ReadToEnd(); //Console.WriteLine(outputStream.ReadToEnd());
+                output += outputStream.ReadToEnd();
             }
 
             p.WaitForExit();

@@ -5,6 +5,7 @@
     <Grid>
         <DataGrid x:Name="gridFirewall" Margin="10,10,10,46"/>
         <Button x:Name="btnLoadRules" Content="Load Rules" HorizontalAlignment="Left" Margin="10,0,0,10" Width="97" Click="btnLoadRules_Click" Height="31" VerticalAlignment="Bottom"/>
+        <Button x:Name="btnBlockExecutable" Content="Block" HorizontalAlignment="Left" Height="31" Margin="112,0,0,10" VerticalAlignment="Bottom" Width="117" Click="btnBlockExecutable_Click"/>
 
     </Grid>
 </Window>

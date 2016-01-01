@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -21,6 +22,16 @@ namespace FirewallEngine
             return result;
         }
 
+        public bool AddProgramRule(string path, FirewallRule.EDirection direcction, FirewallRule.EAction action, FirewallRule.EProtocol protocol)
+        {
+            FileInfo fileInfo = new FileInfo(path);
+            string ruleName = "\"" + direcction + ", " + action + ", " + protocol + " to " + path.Replace(':', '_').Replace('\\', '_').Replace("-","_") + "\"";
+            if (GetRules(ruleName).Count > 0)
+                return false;
+            var result = CommandLine.RunCommand("netsh advfirewall firewall add rule name={0} dir={1} action={2} program=\"{3}\"", ruleName, direcction, action, path);
+            return result.ExitCode == 0;
+        }
+
         public List<FirewallRule> GetRules(string name = "all")
         {
             var commandResult = this.GetCommandLineRules(name);
@@ -38,6 +49,9 @@ namespace FirewallEngine
             Regex matcher = new Regex(pattern);
             string currentLine = "";
 
+            if (result.Contains("No rules match the specified criteria."))
+                return rules;
+
             for (int i = 0; i < lines.Length; i++)
             {
                 currentLine = lines[i];
@@ -54,8 +68,10 @@ namespace FirewallEngine
                     var matched = matcher.Match(currentLine);
                     if (matched.Success && matched.Index == 0)
                         lastKey = _AddItem(values, currentLine);
-                    else
+                    else if (lastKey.Length > 0)
+                    {
                         values[lastKey] += currentLine;
+                    }
                 }
             }
             return rules;
