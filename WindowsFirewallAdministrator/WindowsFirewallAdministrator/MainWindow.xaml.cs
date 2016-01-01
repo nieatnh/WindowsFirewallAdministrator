@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FirewallEngine;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,14 @@ namespace WindowsFirewallAdministrator
         public MainWindow()
         {
             InitializeComponent();
+
+        }
+
+        private void btnLoadRules_Click(object sender, RoutedEventArgs e)
+        {
+            CommandLineFirewall clFirewall = new CommandLineFirewall();
+            var rules = clFirewall.GetRules();
+            gridFirewall.ItemsSource = rules;
         }
     }
 }
