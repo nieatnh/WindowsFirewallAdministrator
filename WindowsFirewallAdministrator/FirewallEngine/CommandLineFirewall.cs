@@ -18,7 +18,7 @@ namespace FirewallEngine
         public CommandResult GetCommandLineRules(string name = "all")
         {
             string command = "netsh advfirewall firewall show rule name={0}";
-            var result = CommandLine.RunCommand(command, name);            
+            var result = CommandLine.RunCommand(command, name);
             return result;
         }
 
