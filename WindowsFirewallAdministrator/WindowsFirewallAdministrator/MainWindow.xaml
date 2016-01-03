@@ -1,10 +1,19 @@
 ﻿<Window x:Class="WindowsFirewallAdministrator.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="MainWindow" Height="350" Width="525">
+        Title="Windows Firewall Administrator" Height="444" Width="673" WindowStartupLocation="CenterScreen">
     <Grid>
-        <DataGrid x:Name="gridFirewall" Margin="10,10,10,46"/>
+        <DataGrid x:Name="gridFirewall" Margin="10,53,10,46"/>
         <Button x:Name="btnLoadRules" Content="Load Rules" HorizontalAlignment="Left" Margin="10,0,0,10" Width="97" Click="btnLoadRules_Click" Height="31" VerticalAlignment="Bottom"/>
+        <Button x:Name="btnBlockExecutable" Content="Block" HorizontalAlignment="Left" Height="31" Margin="112,0,0,10" VerticalAlignment="Bottom" Width="117" Click="btnBlockExecutable_Click"/>
+        <Menu Height="22" VerticalAlignment="Top">
+            <MenuItem Header="File">
+                <MenuItem x:Name="menuClose" Header="Close" Click="menuClose_Click"/>
+            </MenuItem>
+            <MenuItem Header="Firewall">
+                <MenuItem x:Name="menuEntireFolder" Header="Entire Folder" Click="menuEntireFolder_Click"/>
+            </MenuItem>
+        </Menu>
 
     </Grid>
 </Window>

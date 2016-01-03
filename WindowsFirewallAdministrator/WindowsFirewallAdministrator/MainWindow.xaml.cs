@@ -33,5 +33,24 @@ namespace WindowsFirewallAdministrator
             var rules = clFirewall.GetRules();
             gridFirewall.ItemsSource = rules;
         }
+
+        private void btnBlockExecutable_Click(object sender, RoutedEventArgs e)
+        {
+            CommandLineFirewall clFirewall = new CommandLineFirewall();
+            var rules = clFirewall.AddProgramRule(@"C:\Users\NachoPC\Downloads\VisualBoyAdvance-1.8.0-beta3\VisualBoyAdvance.exe", FirewallRule.EDirection.In, FirewallRule.EAction.Block, FirewallRule.EProtocol.TCP);
+
+        }
+
+        private void menuEntireFolder_Click(object sender, RoutedEventArgs e)
+        {
+            WinEntireFolder winEntireFolder = new WinEntireFolder();
+            winEntireFolder.ShowDialog();
+        }
+
+        private void menuClose_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
+
     }
 }
