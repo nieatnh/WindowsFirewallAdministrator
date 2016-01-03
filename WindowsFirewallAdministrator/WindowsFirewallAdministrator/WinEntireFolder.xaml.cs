@@ -33,6 +33,7 @@ namespace WindowsFirewallAdministrator
             public string FullPath { get; set; }
         }
         W.FolderBrowserDialog folderDialog;
+        List<Executable> executableList;
 		public WinEntireFolder()
 		{
 			this.InitializeComponent();
@@ -50,7 +51,7 @@ namespace WindowsFirewallAdministrator
 
         private void LoadFolder(string fullFolderPath)
         {
-            List<Executable> executableList = new List<Executable>();
+            executableList = new List<Executable>();
             foreach (var file in Directory.EnumerateFiles(fullFolderPath, "*.exe", SearchOption.AllDirectories))
             {
                 FileInfo fileInfo = new FileInfo(file);
@@ -66,6 +67,39 @@ namespace WindowsFirewallAdministrator
             }
             
             this.gridExecutables.ItemsSource = executableList;
+        }
+
+        private void btnApply_Click(object sender, RoutedEventArgs e)
+        {
+            if (executableList == null) return;
+            FirewallRule.EAction action;
+            
+            if (radioAllow.IsChecked.HasValue && radioAllow.IsChecked.Value)
+                action = FirewallRule.EAction.Allow;
+            else
+                action = FirewallRule.EAction.Block;
+
+            this.progressRules.Value = 0;
+
+            for (int i = 0; i < executableList.Count; i++)
+            {
+                if (checkInRule.IsChecked.HasValue && checkInRule.IsChecked.Value)
+                    ApplyRule(executableList[i].FullPath, FirewallRule.EDirection.In, action);
+                if (checkOutRule.IsChecked.HasValue && checkOutRule.IsChecked.Value)
+                    ApplyRule(executableList[i].FullPath, FirewallRule.EDirection.Out, action);
+                this.progressRules.Value = (i + 1.0) / executableList.Count;
+            }
+        }
+
+        private void ApplyRule(string executable, FirewallRule.EDirection direction, FirewallRule.EAction action)
+        {
+            CommandLineFirewall clFirewall = new CommandLineFirewall();
+            clFirewall.AddProgramRule(executable, direction, action, FirewallRule.EProtocol.TCP);
+        }
+
+        private void ProgressBar_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+
         }
 	}
 }

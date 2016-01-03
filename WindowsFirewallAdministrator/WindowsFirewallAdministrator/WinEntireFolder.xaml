@@ -37,9 +37,9 @@
 			</DataGrid.Columns>
 		</DataGrid>
 		<Button x:Name="btnChangeFolder" Content="Folder" Height="38" VerticalAlignment="Top" Grid.Column="2" Click="btnChangeFolder_Click" Grid.Row="1" Background="White" BorderThickness="2" Foreground="#FF008507" BorderBrush="#FF008507" Margin="4,0,0,0"/>
-		<Button x:Name="btnApply" Content="Apply" Grid.Column="2" Grid.Row="4" Background="White" BorderThickness="2" BorderBrush="#FF0051FF" Foreground="#FF0051FF" Margin="4,0,0,0"/>
+		<Button x:Name="btnApply" Content="Apply" Grid.Column="2" Grid.Row="4" Background="White" BorderThickness="2" BorderBrush="#FF0051FF" Foreground="#FF0051FF" Margin="4,0,0,0" Click="btnApply_Click"/>
 		<Label x:Name="lblFolderPath" Content="" Grid.Column="1" Margin="0" Grid.Row="1" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Background="White" BorderThickness="2" BorderBrush="#FF8F8F8F" FontSize="16" Padding="0"/>
-		<ProgressBar x:Name="progressRules" Grid.Column="1" Margin="1,0,0,0" Grid.Row="4" BorderThickness="2" BorderBrush="#FF8F8F8F"/>
+		<ProgressBar x:Name="progressRules" Grid.Column="1" Margin="1,0,0,0" Grid.Row="4" BorderThickness="2" BorderBrush="#FF8F8F8F" ValueChanged="ProgressBar_ValueChanged" Maximum="1"/>
 		<Grid Grid.Column="1" Margin="1,0,0,0" Grid.Row="3" Grid.ColumnSpan="2">
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition Width="70*"/>
