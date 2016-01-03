@@ -22,6 +22,12 @@ namespace FirewallEngine
             return result;
         }
 
+        public string CreateRuleName(string path, FirewallRule.EDirection direcction, FirewallRule.EAction action, FirewallRule.EProtocol protocol)
+        {
+            string ruleName = "\"" + direcction + ", " + action + ", " + protocol + " to " + path.Replace(':', '_').Replace('\\', '_').Replace("-", "_") + "\"";
+            return ruleName;
+        }
+
         public bool AddProgramRule(string path, FirewallRule.EDirection direcction, FirewallRule.EAction action, FirewallRule.EProtocol protocol)
         {
             FileInfo fileInfo = new FileInfo(path);

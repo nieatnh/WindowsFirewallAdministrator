@@ -29,6 +29,8 @@ namespace WindowsFirewallAdministrator
             public string Name { get; set; }
             public string RelativePath { get; set; }
             public string Status { get; set; }
+
+            public string FullPath { get; set; }
         }
         W.FolderBrowserDialog folderDialog;
 		public WinEntireFolder()
@@ -58,7 +60,8 @@ namespace WindowsFirewallAdministrator
                     Icon = icon.ToImageSource(),
                     Name = fileInfo.Name,
                     RelativePath = fileInfo.Directory.FullName.Substring(fullFolderPath.Length),
-                    Status = "xD"
+                    Status = "xD",
+                    FullPath = fileInfo.FullName
                 });
             }
             
